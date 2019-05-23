@@ -31,8 +31,8 @@
 		</property>
 	</bean>
 
-	<!-- 添加注解驱动 -->
-	<mvc:annotation-driven enable-matrix-variables="true" />
+	<!-- 注解方法处理器映射器和处理器适配器 -->
+	<mvc:annotation-driven />
 
 	<!-- 允许对静态资源文件的访问 -->
 	<mvc:default-servlet-handler />
