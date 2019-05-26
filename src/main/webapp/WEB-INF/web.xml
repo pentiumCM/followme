@@ -3,8 +3,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1" metadata-complete="true">
 
-	<!-- 对spring-mybatis.xml的引入以及配置的spring-mvc的Servlet就是为了完成SSM整合 -->
-
+	<!-- 对spring-mybatis.xml的引入以及配置的spring-mvc的Servlet,整合ssm框架 -->
 	<!-- spring配置文件路径设置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -30,7 +29,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-
 	<!-- 配置springmvc的前端控制器 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
@@ -50,22 +48,21 @@
 	<!-- static resources -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
-		<url-pattern>*.css</url-pattern>
 		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.gif</url-pattern>
 		<url-pattern>*.jpg</url-pattern>
 		<url-pattern>*.png</url-pattern>
-		<url-pattern>*.gif</url-pattern>
 		<url-pattern>*.eot</url-pattern>
 		<url-pattern>*.svg</url-pattern>
 		<url-pattern>*.ttf</url-pattern>
 		<url-pattern>*.woff</url-pattern>
 	</servlet-mapping>
 
-	<!-- 编码过滤器 -->
+	<!-- spring框架提供的字符集过滤器 -->
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -85,6 +82,4 @@
 		<welcome-file>jsp/index.jsp</welcome-file>
 	</welcome-file-list>
 
-
 </web-app>
-	

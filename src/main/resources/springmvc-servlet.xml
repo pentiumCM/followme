@@ -9,11 +9,10 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<!-- SpringMVC的配置文件单独放，然后在web.xml中配置整合，主要是自动扫描控制器，视图模式，注解的启动这三个 -->
+	<!-- springMVC的配置文件单独放，然后在web.xml中配置整合，主要是自动扫描控制器，视图模式，注解的启动这三个 -->
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
-	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
 				<value>text/html;charset=UTF-8</value>
@@ -22,13 +21,21 @@
 	</bean>
 
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<ref bean="mappingJacksonHttpMessageConverter" />               <!-- json转换器 -->
 			</list>
 		</property>
+	</bean>
+	
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀,在本项目中所有页面跳转交由前端判断 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 在视图逻辑名前面加上prefix，后面加上suffix -->
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".html" />
+		<property name="contentType" value="text/html" />
 	</bean>
 
 	<!-- 注解方法处理器映射器和处理器适配器 -->
@@ -39,17 +46,6 @@
 
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.cl.controller" />
-
-
-	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀,在本项目中所有页面跳转交由前端判断 -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- 在视图逻辑名前面加上prefix，后面加上suffix -->
-		<property name="prefix" value="/" />
-		<property name="suffix" value=".html" />
-		<property name="contentType" value="text/html" />
-	</bean>
-
 
 	<!-- 文件上传配置 -->
 	<bean id="multipartResolver"
@@ -63,16 +59,6 @@
 		</property>
 	</bean>
 
-	<!-- 异常处理 -->
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="Exception">error</prop>
-			</props>
-		</property>
-	</bean>
-
 	<!-- 国际化配置 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -80,6 +66,13 @@
 		<property name="basename" value="messages" />
 	</bean>
 
+	<!-- 异常处理 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="Exception">error</prop>
+			</props>
+		</property>
+	</bean>
+
 </beans>
-
-

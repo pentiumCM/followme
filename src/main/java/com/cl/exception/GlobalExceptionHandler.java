@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author: dylan
  * @date: 2019年4月4日 下午11:08:20
  */
-@ControllerAdvice(basePackages = "org.jit.sose.controller") // 作为全局异常处理的切面类，可以设置包的范围
+@ControllerAdvice(basePackages = "com.cl.controller") // 作为全局异常处理的切面类，可以设置包的范围
 public class GlobalExceptionHandler {
 
 	/**
