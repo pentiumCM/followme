@@ -1,4 +1,4 @@
-package com.cl.views;
+package com.cl.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
