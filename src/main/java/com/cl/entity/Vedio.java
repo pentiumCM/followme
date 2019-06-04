@@ -8,9 +8,11 @@ public class Vedio {
 
 	private String description;
 
-	private String duration;
+	private Long duration;
 
 	private String vedioName;
+	
+	private String gifPath;
 
 	public Integer getId() {
 		return id;
@@ -36,11 +38,13 @@ public class Vedio {
 		this.description = description;
 	}
 
-	public String getDuration() {
+	
+
+	public Long getDuration() {
 		return duration;
 	}
 
-	public void setDuration(String duration) {
+	public void setDuration(Long duration) {
 		this.duration = duration;
 	}
 
@@ -51,5 +55,15 @@ public class Vedio {
 	public void setVedioName(String vedioName) {
 		this.vedioName = vedioName;
 	}
+
+	public String getGifPath() {
+		return gifPath;
+	}
+
+	public void setGifPath(String gifPath) {
+		this.gifPath = gifPath;
+	}
+	
+	
 
 }

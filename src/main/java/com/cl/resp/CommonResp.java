@@ -11,7 +11,6 @@ public class CommonResp {
 	
 	private Object obj;
 	
-	private Map<String, Object> map;
 
 	public String getCode() {
 		return code;
@@ -39,20 +38,12 @@ public class CommonResp {
 		this.obj = obj;
 	}
 
-	public Map<String, Object> getMap() {
-		return map;
-	}
 
-	public void setMap(Map<String, Object> map) {
-		this.map = map;
-	}
-
-	public CommonResp(String code, String msg, Object obj, Map<String, Object> map) {
+	public CommonResp(String code, String msg, Object obj) {
 		super();
 		this.code = code;
 		this.msg = msg;
 		this.obj = obj;
-		this.map = map;
 	}
 
 	

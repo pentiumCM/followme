@@ -66,9 +66,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		User user = userMapper.selectByUserName(username);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("user", user);
-		map.put("name", "zhangsan");
-		CommonResp commonResp = new CommonResp(Constants.SUCCESS_CODE, "login success", map, null);
+		CommonResp commonResp = new CommonResp(Constants.SUCCESS_CODE, "login success", user);
 		
 		return JSON.toJSONString(commonResp);
 	}

@@ -11,4 +11,6 @@ public class Constants {
 	
 	public static final int GIF_TYPE = 2;
 	
+	public static final int JPG_TYPE = 3;
+	
 }

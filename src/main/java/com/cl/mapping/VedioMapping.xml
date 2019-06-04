@@ -7,10 +7,11 @@
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="duration" property="duration" jdbcType="FLOAT" />
     <result column="vedioName" property="vedioName" jdbcType="VARCHAR" />
+    <result column="gifPath" property="gifPath" jdbcType="VARCHAR" />
   </resultMap>
   
     <sql id="Base_Column_List" >
-    id, vedioPath, description, duration, vedioName
+    id, vedioPath, description, duration, vedioName,gifPath
   </sql>
   
   
@@ -29,6 +30,9 @@
       <if test="vedioName != null" >
         vedioName,
       </if>
+      <if test="gifPath != null" >
+        gifPath,
+      </if>
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="vedioPath != null" >
@@ -42,6 +46,9 @@
       </if>
       <if test="vedioName != null" >
         #{vedioName,jdbcType=VARCHAR},
+      </if>
+      <if test="gifPath != null" >
+        #{gifPath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
