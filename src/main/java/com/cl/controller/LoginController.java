@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,7 @@ import com.cl.service.UserService;
 import com.cl.util.AES128;
 import com.cl.util.CaptchaUtil;
 import com.cl.util.JavaMailUtil;
+import com.cl.util.PropertiesUtil;
 import com.cl.util.QcloudSmsUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +39,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@Controller
 @RequestMapping("/account/login")
 public class LoginController {
 	@Autowired
@@ -90,18 +92,26 @@ public class LoginController {
 	 * 
 	 * @param userName 用户名
 	 * @return exist/null
+	 * @throws Exception 
 	 */
+	/*
+	 * @RequestMapping(value = "/checkByName", method = RequestMethod.POST) public
+	 * Map<String, Object> checkByName(@RequestBody String str) { Map<String,
+	 * Object> map = new HashMap<>(); JSONObject strj = new JSONObject(str); User
+	 * user = userService.selectByUserName(strj.getString("userName")); if (user !=
+	 * null) { map.put("info", "exist"); } else { map.put("info", "null"); } return
+	 * map; }
+	 */
+	
+	
 	@RequestMapping(value = "/checkByName", method = RequestMethod.POST)
-	public Map<String, Object> checkByName(@RequestBody String str) {
-		Map<String, Object> map = new HashMap<>();
-		JSONObject strj = new JSONObject(str);
-		User user = userService.selectByUserName(strj.getString("userName"));
-		if (user != null) {
-			map.put("info", "exist");
-		} else {
-			map.put("info", "null");
-		}
-		return map;
+	public String checkByName(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String username = request.getParameter("username");
+PropertiesUtil propertiesUtil = new PropertiesUtil();
+		
+		Properties properties = propertiesUtil.readProperties("jdbc.properties");
+		String filepath = properties.getProperty("filepath");
+		return  userService.selectUser(username);
 	}
 
 	/**

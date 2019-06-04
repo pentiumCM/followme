@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.VedioMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.Vedio">
+  <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vedioPath" property="vedioPath" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="FLOAT" />
+    <result column="vedioName" property="vedioName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <sql id="Base_Column_List" >
+    id, vedioPath, description, duration, vedioName
+  </sql>
+  
+  
+  <insert id="insert" parameterType="com.cl.entity.Vedio" >
+    INSERT INTO `vedio`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vedioPath != null" >
+        vedioPath,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="vedioName != null" >
+        vedioName,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="vedioPath != null" >
+        #{vedioPath,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=FLOAT},
+      </if>
+      <if test="vedioName != null" >
+        #{vedioName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+
+
+ 
+
+</mapper>
