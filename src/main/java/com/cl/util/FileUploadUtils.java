@@ -50,7 +50,6 @@ public class FileUploadUtils {
 		try {
 			FFMpegUtil.convetor(duration, "00:00:00", vedioPath, gifPath);
 			gifPath = getAccessPath(ip, port, gifPath);
-			System.out.println(gifPath);
 			gifParam[0] = String.valueOf(duration);
 			gifParam[1] = String.valueOf(gifPath);
 		} catch (Exception e) {
@@ -107,6 +106,9 @@ public class FileUploadUtils {
 				break;
 			case Constants.GIF_TYPE:
 				uploadPath = uploadPath + "/gif";
+				break;
+			case Constants.JPG_TYPE:
+				uploadPath = uploadPath + "/jpg";
 				break;
 			default:
 				break;

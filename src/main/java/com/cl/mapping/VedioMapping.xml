@@ -8,11 +8,31 @@
     <result column="duration" property="duration" jdbcType="FLOAT" />
     <result column="vedioName" property="vedioName" jdbcType="VARCHAR" />
     <result column="gifPath" property="gifPath" jdbcType="VARCHAR" />
+    <result column="actID" property="actID" jdbcType="INTEGER" />
+    <result column="clubName" property="clubName" jdbcType="VARCHAR" />
+    <result column="actCost" property="actCost" jdbcType="VARCHAR" />
   </resultMap>
   
     <sql id="Base_Column_List" >
-    id, vedioPath, description, duration, vedioName,gifPath
+    id, vedioPath, description, duration, vedioName,gifPath,actID
   </sql>
+  <select id="selectGif" resultMap="BaseResultMap">
+  	SELECT
+		v.actId,
+		v.gifPath,
+		v.description,
+		c.clubName,
+		a.actCost
+	FROM
+		vedio v
+	INNER JOIN activity a ON v.actId = a.id
+	INNER JOIN club c ON a.clubID = c.id
+	WHERE
+		a.isDelete = 0
+	AND c.isDelete = 0
+	ORDER BY
+		v.actId DESC
+  </select>
   
   
   <insert id="insert" parameterType="com.cl.entity.Vedio" >
@@ -33,6 +53,9 @@
       <if test="gifPath != null" >
         gifPath,
       </if>
+      <if test="actID != null" >
+        actID,
+      </if>
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="vedioPath != null" >
@@ -49,6 +72,9 @@
       </if>
       <if test="gifPath != null" >
         #{gifPath,jdbcType=VARCHAR},
+      </if>
+      <if test="actID != null" >
+        #{actID,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

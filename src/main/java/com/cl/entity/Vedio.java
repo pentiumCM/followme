@@ -4,6 +4,8 @@ public class Vedio {
 	
 	private Integer id;
 
+	private Integer actID;
+	
 	private String vedioPath;
 
 	private String description;
@@ -13,6 +15,11 @@ public class Vedio {
 	private String vedioName;
 	
 	private String gifPath;
+	
+	private String clubName;
+	
+	private String actCost;
+	
 
 	public Integer getId() {
 		return id;
@@ -20,6 +27,14 @@ public class Vedio {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getActID() {
+		return actID;
+	}
+
+	public void setActID(Integer actID) {
+		this.actID = actID;
 	}
 
 	public String getVedioPath() {
@@ -37,7 +52,6 @@ public class Vedio {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	
 
 	public Long getDuration() {
@@ -63,7 +77,21 @@ public class Vedio {
 	public void setGifPath(String gifPath) {
 		this.gifPath = gifPath;
 	}
-	
-	
+
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
+	}
+
+	public String getActCost() {
+		return actCost;
+	}
+
+	public void setActCost(String actCost) {
+		this.actCost = actCost;
+	}
 
 }
