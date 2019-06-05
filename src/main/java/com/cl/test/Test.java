@@ -15,8 +15,9 @@ public class Test {
 	}
 	
 	public static void test2() throws Exception {
-		String inputPath = "D:/upload/follow_me/vedio/WeChat_20190603230941.mp4";
+		String inputPath = "mp3D:/upload/follow_me/vedio/WeChat_20190603230941.mp4";
 		String outPath = "D:/upload/follow_me/gif/4.gif";
-		FFMpegUtil.convetor(5, "00:00:00", inputPath, outPath);
+		System.out.println(inputPath.indexOf("mp3"));
+		System.out.println(outPath.indexOf(".mp4"));
 	}
 }

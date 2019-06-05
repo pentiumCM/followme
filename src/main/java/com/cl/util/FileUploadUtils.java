@@ -18,58 +18,71 @@ public class FileUploadUtils {
 	// "/upload" 是自定义的虚拟上传路径，需要到tomcat里面 server.xml 里面重新配置修改
 	private static String virtualPath = "/upload";
 
-	public static final String upload(String ip, String port, MultipartFile file, Integer uploadType) throws Exception {
+	public static final String upload(String ip, String port, MultipartFile file, Integer uploadType) {
 		String uploadPath = getUploadPath(uploadType);
 		String filename = extractFilename(file, uploadPath);
-		File desc = getAbsoluteFile(filename,uploadType);
-		file.transferTo(desc);
-		filename = getAccessPath(ip, port, filename);
-		System.out.println(filename);
-
+		File desc = getAbsoluteFile(filename, uploadType);
+		try {
+			file.transferTo(desc);
+			filename = getAccessPath(ip, port, filename);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return filename;
 	}
 
-	
-	//将MP4转成gif，并返回视频时长和gifpath
+	// 将MP4转成gif，并返回视频时长和gifpath
 	public static final String[] convert2GIF(String ip, String port, String vedioPath, Integer uploadType)
-			throws Exception {
-		String[] gifParam = new String[2]; 
+			 {
+		String[] gifParam = new String[2];
 		String gifUploadPath = getUploadPath(uploadType);
 		String vedioUploadPath = getUploadPath(Constants.VEDIO_TYPE);
 		String gifPath = "";
-		//gif的文件名和vedio名称一样
+		// gif的文件名和vedio名称一样
 		gifPath = vedioPath.replace(ip + ":" + port + virtualPath + "/vedio", gifUploadPath).replace(".mp4", ".gif");
 		vedioPath = vedioPath.replace(ip + ":" + port + virtualPath + "/vedio", vedioUploadPath);
-		//创建gif文件目录，不写gif文件
-		File desc = getAbsoluteFile(gifPath,uploadType);
-		//获取视频时长
+		// 创建gif文件目录，不写gif文件
+		File desc = getAbsoluteFile(gifPath, uploadType);
+		// 获取视频时长
 		long duration = ReadVideoTime(new File(vedioPath));
-		//将vedio转成gif
-		FFMpegUtil.convetor(duration, "00:00:00", vedioPath, gifPath);
-		gifPath = getAccessPath(ip, port, gifPath);
-		System.out.println(gifPath);
-		gifParam[0] = String.valueOf(duration);
-		gifParam[1] = String.valueOf(gifPath);
+		// 将vedio转成gif
+		try {
+			FFMpegUtil.convetor(duration, "00:00:00", vedioPath, gifPath);
+			gifPath = getAccessPath(ip, port, gifPath);
+			System.out.println(gifPath);
+			gifParam[0] = String.valueOf(duration);
+			gifParam[1] = String.valueOf(gifPath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return gifParam;
 	}
 
-	private static final File getAbsoluteFile(String filename,Integer uploadType) throws IOException {
+	private static final File getAbsoluteFile(String filename, Integer uploadType) {
 //        File desc = new File(uploadDir + "/" + filename);
 		File desc = new File(filename);
 		if (!desc.getParentFile().exists()) {
 			desc.getParentFile().mkdirs();
 		}
-		//如果不是gif类型，需要写文件，是的话，就不需要
+		// 如果不是gif类型，需要写文件，是的话，就不需要
 		if (uploadType != Constants.GIF_TYPE) {
 			if (!desc.exists()) {
-				desc.createNewFile();
+				try {
+					desc.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-		
+
 		return desc;
 	}
 
-	public static final String extractFilename(MultipartFile file, String baseDir) throws UnsupportedEncodingException {
+	public static final String extractFilename(MultipartFile file, String baseDir) {
 		String filename = file.getOriginalFilename();
 		filename = UUID.randomUUID() + filename;
 		int slashIndex = filename.indexOf("/");
@@ -117,18 +130,18 @@ public class FileUploadUtils {
 		}
 		return filename;
 	}
-	
-	//读取视频时长
+
+	// 读取视频时长
 	public static long ReadVideoTime(File source) {
 		Encoder encoder = new Encoder();
 		long length = 0;
 		try {
 			MultimediaInfo m = encoder.getInfo(source);
-			length = m.getDuration()/1000;
+			length = m.getDuration() / 1000;
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		return length;
-		}
-	
+	}
+
 }

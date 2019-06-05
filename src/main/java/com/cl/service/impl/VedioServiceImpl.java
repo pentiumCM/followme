@@ -15,11 +15,10 @@ public class VedioServiceImpl implements VedioService{
 	@Autowired
 	VedioMapper vedioMapper;
 	@Override
-	public String insert(Vedio vedio) {
+	public void insert(Vedio vedio) {
 		// TODO Auto-generated method stub
 		vedioMapper.insert(vedio);
-		CommonResp commonResp = new CommonResp("200", "upload vedio success", vedio);
-		return JSON.toJSONString(commonResp);
+		
 	}
 
 }
