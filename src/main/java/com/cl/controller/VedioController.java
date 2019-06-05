@@ -49,6 +49,7 @@ public class VedioController {
 		vedio.setGifPath(gifParam[1]);
 		vedio.setVedioName(vedioName);
 		vedio.setVedioPath(vedioPath);
+		vedioService.insert(vedio);
 		commonResp = new CommonResp(Constants.SUCCESS_CODE, "upload vedio success", vedio);
 		return JSON.toJSONString(commonResp);
 	}
