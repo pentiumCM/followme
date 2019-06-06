@@ -39,8 +39,8 @@ public class PropertiesUtil {
 		return instance;
 	}
 
-	public Properties readProperties(String propertiesName) throws Exception {
-		InputStream ins = this.getClass().getClassLoader().getResourceAsStream(propertiesName);
+	public static Properties readProperties(String propertiesName) throws Exception {
+		InputStream ins = PropertiesUtil.class.getClassLoader().getResourceAsStream(propertiesName);
 		Properties p = getInstance();
 		p.load(ins);
 		return p;

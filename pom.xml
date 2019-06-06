@@ -146,6 +146,15 @@
 			<version>1.2</version>
 		</dependency>
 
+		<!-- 读取项目里面的jar包 -->
+		<dependency>
+    		<groupId>jave</groupId>
+    		<artifactId>jave</artifactId>
+    		<version>1.0.2</version>
+    		<scope>system</scope>
+    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jave-1.0.2.jar</systemPath>
+		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -253,29 +262,29 @@
 			<version>1.16.18</version>
 			<!-- <scope>provided</scope> -->
 		</dependency>
-		
+
 		<!-- org.json.JSONObject -->
 		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20180813</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
 		</dependency>
-		
+
 		<!-- 腾讯云短信 -->
 		<dependency>
-		    <groupId>com.github.qcloudsms</groupId>
-		    <artifactId>qcloudsms</artifactId>
-		    <version>1.0.2</version>
+			<groupId>com.github.qcloudsms</groupId>
+			<artifactId>qcloudsms</artifactId>
+			<version>1.0.2</version>
 		</dependency>
-		
+
 		<!-- 支付宝 -->
 		<dependency>
-		    <groupId>com.alipay.sdk</groupId>
-		    <artifactId>alipay-sdk-java</artifactId>
-		    <version>3.7.4.ALL</version>
+			<groupId>com.alipay.sdk</groupId>
+			<artifactId>alipay-sdk-java</artifactId>
+			<version>3.7.4.ALL</version>
 		</dependency>
-		
-		
+
+
 
 
 

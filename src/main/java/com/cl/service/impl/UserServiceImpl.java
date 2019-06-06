@@ -1,10 +1,21 @@
 package com.cl.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.render.Renderer;
+import javax.json.Json;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+import com.cl.constants.Constants;
 import com.cl.entity.User;
 import com.cl.mapper.UserMapper;
+import com.cl.resp.CommonResp;
 import com.cl.service.UserService;
 
 /**
@@ -48,6 +59,16 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return "fail";
 		}
+	}
+
+	@Override
+	public String selectUser(String username) {
+		// TODO Auto-generated method stub
+		User user = userMapper.selectByUserName(username);
+		Map<String, Object> map = new HashMap<String, Object>();
+		CommonResp commonResp = new CommonResp(Constants.SUCCESS_CODE, "login success", user);
+		
+		return JSON.toJSONString(commonResp);
 	}
 
 }

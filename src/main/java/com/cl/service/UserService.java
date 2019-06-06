@@ -47,5 +47,7 @@ public interface UserService {
 	 * @return success/fail
 	 */
 	String updateById(User user);
+	
+	String selectUser(String username);
 
 }
