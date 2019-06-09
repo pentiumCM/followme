@@ -1,10 +1,16 @@
 package com.cl.test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.cl.util.FFMpegUtil;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
-		test2();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Long time=new Long(1546099200);
+		Date date = new Date(time);
+		System.out.println(simpleDateFormat.format(date));
 	}
 	
 	public static void test1() {

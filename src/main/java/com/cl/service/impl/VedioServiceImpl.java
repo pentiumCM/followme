@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.cl.entity.Vedio;
 import com.cl.mapper.VedioMapper;
-import com.cl.resp.CommonResp;
 import com.cl.service.VedioService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,6 +30,12 @@ public class VedioServiceImpl implements VedioService {
 		List<Vedio> list = vedioMapper.selectGif();
 		PageInfo<Vedio> pageInfo = new PageInfo<Vedio>(list);
 		return pageInfo;
+	}
+
+	@Override
+	public Vedio selectVedioByActID(Integer actID) {
+		// TODO Auto-generated method stub
+		return vedioMapper.selectVedioByActID(actID);
 	}
 
 }

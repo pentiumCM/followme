@@ -8,6 +8,8 @@ public class Picture {
 	
 	private Integer actID;
 
+	private Integer actType;
+
 	public Integer getId() {
 		return id;
 	}
@@ -31,6 +33,15 @@ public class Picture {
 	public void setActID(Integer actID) {
 		this.actID = actID;
 	}
+
+	public Integer getActType() {
+		return actType;
+	}
+
+	public void setActType(Integer actType) {
+		this.actType = actType;
+	}
+	
 	
 	
 }

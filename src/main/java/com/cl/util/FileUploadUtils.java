@@ -9,15 +9,28 @@ import it.sauronsoftware.jave.MultimediaInfo;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cl.constants.Constants;
 
 public class FileUploadUtils {
 
+	
 	// "/upload" 是自定义的虚拟上传路径，需要到tomcat里面 server.xml 里面重新配置修改
 	private static String virtualPath = "/upload";
 
+	public static Log log = LogFactory.getLog(FileUploadUtils.class);
+	
+	/**
+	 * 
+	 * @param ip 服务ip
+	 * @param port 服务端口
+	 * @param file 处理的文件
+	 * @param uploadType 文件类型
+	 * @return
+	 */
 	public static final String upload(String ip, String port, MultipartFile file, Integer uploadType) {
 		String uploadPath = getUploadPath(uploadType);
 		String filename = extractFilename(file, uploadPath);
@@ -27,6 +40,7 @@ public class FileUploadUtils {
 			filename = getAccessPath(ip, port, filename);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			log.error(e.getMessage() + "MultipartFile 转 file 错误");
 			e.printStackTrace();
 		} 
 		return filename;
@@ -54,14 +68,20 @@ public class FileUploadUtils {
 			gifParam[1] = String.valueOf(gifPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			log.error(e.getMessage() + "MP4转GIF错误");
 			e.printStackTrace();
 		}
 		
 		return gifParam;
 	}
 
+	/**
+	 * 
+	 * @param filename 文件名
+	 * @param uploadType 文件类型
+	 * @return
+	 */
 	private static final File getAbsoluteFile(String filename, Integer uploadType) {
-//        File desc = new File(uploadDir + "/" + filename);
 		File desc = new File(filename);
 		if (!desc.getParentFile().exists()) {
 			desc.getParentFile().mkdirs();
@@ -73,6 +93,7 @@ public class FileUploadUtils {
 					desc.createNewFile();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+					log.error(e.getMessage() + "创建文件错误");
 					e.printStackTrace();
 				}
 			}
@@ -81,6 +102,12 @@ public class FileUploadUtils {
 		return desc;
 	}
 
+	/**
+	 * 获取写到本地的名称
+	 * @param file 文件
+	 * @param baseDir 文件路径
+	 * @return
+	 */
 	public static final String extractFilename(MultipartFile file, String baseDir) {
 		String filename = file.getOriginalFilename();
 		filename = UUID.randomUUID() + filename;
@@ -96,6 +123,11 @@ public class FileUploadUtils {
 		return request.getServletContext().getRealPath("/");
 	}
 
+	/**
+	 * 根据文件类型，获取放置文件的路径
+	 * @param uploadType
+	 * @return
+	 */
 	public static String getUploadPath(Integer uploadType) {
 		String uploadPath = "";
 		try {
@@ -115,12 +147,20 @@ public class FileUploadUtils {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			log.error(e.getMessage() + "读取配置文件信息错误");
 			e.printStackTrace();
 		}
 
 		return uploadPath;
 	}
 
+	/**
+	 * 获取文件的访问路径
+	 * @param ip
+	 * @param port
+	 * @param filename
+	 * @return
+	 */
 	public static String getAccessPath(String ip, String port, String filename) {
 		String uploadPath = "";
 		try {
@@ -128,12 +168,17 @@ public class FileUploadUtils {
 			filename = filename.replace(uploadPath, ip + ":" + port + virtualPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			log.error(e.getMessage() + "读取配置文件信息错误");
 			e.printStackTrace();
 		}
 		return filename;
 	}
 
-	// 读取视频时长
+	/**
+	 * 获取视频文件的长度
+	 * @param source
+	 * @return
+	 */
 	public static long ReadVideoTime(File source) {
 		Encoder encoder = new Encoder();
 		long length = 0;
@@ -141,6 +186,7 @@ public class FileUploadUtils {
 			MultimediaInfo m = encoder.getInfo(source);
 			length = m.getDuration() / 1000;
 		} catch (Exception e) {
+			log.error(e.getMessage() + "获取MP4视频长度错误");
 			e.printStackTrace();
 		}
 		return length;
