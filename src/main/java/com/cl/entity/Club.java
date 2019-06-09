@@ -1,18 +1,19 @@
 package com.cl.entity;
 
 public class Club {
-	
+
 	private Integer id;
-	
+
 	private String clubLogin;
-	
+
 	private String clubName;
-	
+
 	private String password;
-	
+
 	private String description;
-	
+
 	private Integer isDelete;
+
 
 	public Integer getId() {
 		return id;
@@ -61,6 +62,6 @@ public class Club {
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
 	}
-	
-	
+
+
 }

@@ -7,6 +7,12 @@ public class Constants {
 	
 	public static final String ERROR_CODE = "500";
 	
+	public static final String NOLOGIN_CODE = "501";
+	
+	public static final String INVALID_PARAMETER_CODE = "502";
+	
+	public static final String INVALID_FILE_CODE = "503";
+	
 	public static final int VEDIO_TYPE = 1;
 	
 	public static final int GIF_TYPE = 2;

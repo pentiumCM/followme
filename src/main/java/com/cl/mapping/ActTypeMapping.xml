@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.ActTypeMapper">
+	<resultMap id="BaseResultMap" type="com.cl.entity.ActType">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="description" property="description"
+			jdbcType="VARCHAR" />
+		<result column="prictureUrl" property="prictureUrl"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, description, prictureUrl
+	</sql>
+	
+	
+	<select id="selectActType" resultMap="BaseResultMap">
+		SELECT a.*,p.pictureUrl FROM picture p INNER JOIN acttype a ON p.actType =
+		a.id INNER JOIN activity b ON b.id = p.actID INNER JOIN club c ON
+		b.clubID = c.id WHERE c.isDelete = '0' AND b.isDelete = '0' GROUP BY
+		p.actType
+	</select>
+	
+	
+	<select id="selectPicturesByActTypeID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT a.*,p.pictureUrl FROM picture p INNER JOIN acttype a ON p.actType =
+		a.id INNER JOIN activity b ON b.id = p.actID INNER JOIN club c ON
+		b.clubID = c.id WHERE c.isDelete = '0' AND b.isDelete = '0' AND a.id = #{actTypeID}
+	</select>
+
+	
+
+
+
+
+
+
+
+</mapper>

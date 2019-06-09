@@ -38,5 +38,17 @@ public class ActivityServiceImpl implements ActivityService{
 		vedio.setActID(activity.getId());
 		vedioMapper.insert(vedio);
 	}
+
+	@Override
+	public List<Activity> selectActivityByClubID(Integer clubID) {
+		// TODO Auto-generated method stub
+		return activityMapper.selectActivityByClubID(clubID);
+	}
+
+	@Override
+	public Activity selectActivityByActID(Integer actID) {
+		// TODO Auto-generated method stub
+		return activityMapper.selectActivityByActID(actID);
+	}
 	
 }

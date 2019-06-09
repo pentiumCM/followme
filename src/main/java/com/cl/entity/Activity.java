@@ -1,36 +1,39 @@
 package com.cl.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 public class Activity {
 
 	private Integer id;
 
 	private String actTime;
-	
+
 	private String actTitle;
-	
+
 	private Integer actMaxPerson;
-	
+
 	private Integer actCurPerson;
-	
+
 	private String beginCity;
-	
+
 	private String gatherPlace;
-	
-	private Timestamp beginTime;
-	
+
+	private Date beginTime;
+
 	private String actCost;
-	
+
 	private String introduction;
-	
+
 	private Integer insurance;
-	
+
 	private Integer clubID;
-	
+
 	private Integer actType;
-	
+
 	private Integer isDelete;
+	
+	private List<Picture> pictureList;
 
 	public Integer getId() {
 		return id;
@@ -88,11 +91,11 @@ public class Activity {
 		this.gatherPlace = gatherPlace;
 	}
 
-	public Timestamp getBeginTime() {
+	public Date getBeginTime() {
 		return beginTime;
 	}
 
-	public void setBeginTime(Timestamp beginTime) {
+	public void setBeginTime(Date beginTime) {
 		this.beginTime = beginTime;
 	}
 
@@ -143,7 +146,15 @@ public class Activity {
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
 	}
-	
+
+	public List<Picture> getPictureList() {
+		return pictureList;
+	}
+
+	public void setPictureList(List<Picture> pictureList) {
+		this.pictureList = pictureList;
+	}
+
 	
 
 }
