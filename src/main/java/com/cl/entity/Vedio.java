@@ -1,10 +1,14 @@
 package com.cl.entity;
 
+import java.sql.Timestamp;
+
 public class Vedio {
 	
 	private Integer id;
 
 	private Integer actID;
+	
+	private Integer actType;
 	
 	private String vedioPath;
 
@@ -20,6 +24,17 @@ public class Vedio {
 	
 	private String actCost;
 	
+	private Timestamp beginTime;
+	
+	private String beginCity;
+
+	public Integer getActType() {
+		return actType;
+	}
+
+	public void setActType(Integer actType) {
+		this.actType = actType;
+	}
 
 	public Integer getId() {
 		return id;
@@ -93,5 +108,22 @@ public class Vedio {
 	public void setActCost(String actCost) {
 		this.actCost = actCost;
 	}
+
+	public Timestamp getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Timestamp beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public String getBeginCity() {
+		return beginCity;
+	}
+
+	public void setBeginCity(String beginCity) {
+		this.beginCity = beginCity;
+	}
+	
 
 }

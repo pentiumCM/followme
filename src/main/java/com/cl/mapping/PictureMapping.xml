@@ -6,23 +6,31 @@
 		<result column="pictureUrl" property="pictureUrl"
 			jdbcType="VARCHAR" />
 		<result column="actID" property="actID" jdbcType="INTEGER" />
+		<result column="actType" property="actType" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, pictureUrl, actID
+		id, pictureUrl, actID,actType
 	</sql>
+	
+	<select id="selectPictureByActID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	
+		select <include refid="Base_Column_List"></include> from picture where actID = #{actID}
+		
+	</select>
 
 
 	<insert id="insert" parameterType="java.util.List"
 		useGeneratedKeys="false">
 		INSERT INTO `picture`
-		(pictureUrl,actID)
+		(pictureUrl,actID,actType)
 		values
 		<foreach collection="list" item="item" index="index"
 			separator=",">
 			(
 			#{item.pictureUrl},
-			#{item.actID}
+			#{item.actID},
+			#{item.actType}
 			)
 		</foreach>
 	</insert>

@@ -19,19 +19,30 @@
 		<result column="actCost" property="actCost" jdbcType="VARCHAR" />
 		<result column="introduction" property="introduction"
 			jdbcType="VARCHAR" />
-		<result column="insurance" property="insurance" jdbcType="INTEGER" />
+		<result column="insurance" property="insurance"
+			jdbcType="INTEGER" />
 		<result column="clubID" property="clubID" jdbcType="INTEGER" />
 		<result column="actType" property="actType" jdbcType="INTEGER" />
-		<result column="isDelete" property="isDelete" jdbcType="INTEGER" />
+		<result column="isDelete" property="isDelete"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<resultMap id="IncludePictureResultMap"
+		type="com.cl.entity.Activity" extends="BaseResultMap">
+		<collection property="pictureList" ofType="Picture"
+			select="com.cl.mapper.PictureMapper.selectPictureByActID" column="id" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, actTime, actTitle, actMaxPerson, actCurPerson, beginCity,
-		gatherPlace, beginTime, actCost, introduction, insurance, clubID, actType, isDelete
+		id, actTime, actTitle, actMaxPerson, actCurPerson,
+		beginCity,
+		gatherPlace, beginTime, actCost, introduction, insurance,
+		clubID, actType, isDelete
 	</sql>
 
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.cl.entity.Activity">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="com.cl.entity.Activity">
 		INSERT INTO `activity`
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="actTime != null">
@@ -116,6 +127,30 @@
 			</if>
 		</trim>
 	</insert>
+
+	<select id="selectActivityByClubID"
+		resultMap="IncludePictureResultMap" parameterType="java.lang.Integer">
+		SELECT
+		a.actCost,a.actTitle,a.id FROM activity a INNER
+		JOIN club c ON a.clubID
+		= c.id WHERE c.isDelete = '0' AND a.isDelete =
+		'0' AND a.clubID =
+		#{clubID}
+	</select>
+
+	<select id="selectActivityByActID"
+		resultMap="IncludePictureResultMap" parameterType="java.lang.Integer">
+		SELECT a.actCost,
+		a.actTitle,
+		a.id,
+		a.actCurPerson,
+		a.introduction,
+		a.beginTime,
+		a.gatherPlace FROM activity a INNER
+		JOIN club c ON a.clubID = c.id WHERE c.isDelete
+		= '0' AND a.isDelete =
+		'0' AND a.id = #{actID}
+	</select>
 
 
 </mapper>

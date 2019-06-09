@@ -11,18 +11,22 @@
     <result column="actID" property="actID" jdbcType="INTEGER" />
     <result column="clubName" property="clubName" jdbcType="VARCHAR" />
     <result column="actCost" property="actCost" jdbcType="VARCHAR" />
+    <result column="actType" property="actType" jdbcType="INTEGER" />
+    <result column="beginTime" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="beginCity" property="beginCity" jdbcType="VARCHAR" />
   </resultMap>
   
     <sql id="Base_Column_List" >
-    id, vedioPath, description, duration, vedioName,gifPath,actID
+    id, vedioPath, description, duration, vedioName,gifPath,actID,actType
   </sql>
   <select id="selectGif" resultMap="BaseResultMap">
   	SELECT
-		v.actId,
+		v.actID,
 		v.gifPath,
 		v.description,
 		c.clubName,
-		a.actCost
+		a.actCost,
+		v.actType
 	FROM
 		vedio v
 	INNER JOIN activity a ON v.actId = a.id
@@ -32,6 +36,25 @@
 	AND c.isDelete = 0
 	ORDER BY
 		v.actId DESC
+  </select>
+  
+   <select id="selectVedioByActID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT
+		c.clubName,
+		v.vedioPath,
+		v.duration,
+		v.description,
+		a.beginTime,
+		a.actCost,
+		a.beginCity
+	FROM
+		vedio v
+	INNER JOIN activity a ON v.actID = a.id
+	INNER JOIN club c ON a.clubID = c.id
+	WHERE
+		a.isDelete = 0
+	AND c.isDelete = 0
+	AND v.actID = #{actID}
   </select>
   
   
@@ -56,6 +79,9 @@
       <if test="actID != null" >
         actID,
       </if>
+      <if test="actType != null" >
+        actType,
+      </if>
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="vedioPath != null" >
@@ -76,9 +102,14 @@
       <if test="actID != null" >
         #{actID,jdbcType=INTEGER},
       </if>
+      <if test="actType != null" >
+        #{actType,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   
+
+	
 
 
  

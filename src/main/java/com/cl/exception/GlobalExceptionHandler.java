@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.cl.constants.Constants;
+import com.cl.resp.CommonResp;
+
 /**
  * 全局捕获异常
  * 
  * @author: dylan
  * @date: 2019年4月4日 下午11:08:20
  */
-@ControllerAdvice(basePackages = "com.cl.controller") // 作为全局异常处理的切面类，可以设置包的范围
+@ControllerAdvice // 作为全局异常处理的切面类，可以设置包的范围
 public class GlobalExceptionHandler {
 
 	/**
@@ -73,4 +77,18 @@ public class GlobalExceptionHandler {
 		map.put("errorMsg", "全局捕获数据库异常");
 		return map;
 	}
+	
+	/**
+	 * 参数解析异常处理
+	 * @param e
+	 * @return
+	 */
+	
+	@ResponseBody
+	@ExceptionHandler(IllegalArgumentException.class) // 设置具体捕获异常类
+	public String IllegalArgumentException(IllegalArgumentException e) {
+		CommonResp commonResp = new CommonResp(Constants.INVALID_PARAMETER_CODE, "invalid paramters", null);
+		return JSON.toJSONString(commonResp);
+	}
+	
 }
