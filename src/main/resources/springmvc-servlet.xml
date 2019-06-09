@@ -14,12 +14,25 @@
 	<!-- 配置注解驱动 -->
 	<context:annotation-config />
 	<!-- 注解方法处理器映射器和处理器适配器 -->
-	<mvc:annotation-driven />
+	
+	<!-- 解决返回体中文问号 -->
+	<mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+	</mvc:annotation-driven>
 
 	<!-- 启动自动扫描，使用注解的包，包括子集 注意每次要验证包名是否一致来修改 spring会自动扫描base-package包下或其子包下的java 
 		文件 如果扫描到有spring相关注解的类，则把这些类注册为spring的bean -->
 	<context:component-scan base-package="com.cl.controller" />
-	<context:component-scan base-package="com.cl.views" />
+	<context:component-scan base-package="com.cl.exception" />
+	<context:component-scan base-package="com.cl.view" />
 
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀,在本项目中所有页面跳转交由前端判断 -->
 	<bean
