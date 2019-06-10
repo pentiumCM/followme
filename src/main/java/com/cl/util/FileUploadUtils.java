@@ -31,13 +31,13 @@ public class FileUploadUtils {
 	 * @param uploadType 文件类型
 	 * @return
 	 */
-	public static final String upload(String ip, String port, MultipartFile file, Integer uploadType) {
+	public static final String upload(MultipartFile file, Integer uploadType) {
 		String uploadPath = getUploadPath(uploadType);
 		String filename = extractFilename(file, uploadPath);
 		File desc = getAbsoluteFile(filename, uploadType);
 		try {
 			file.transferTo(desc);
-			filename = getAccessPath(ip, port, filename);
+			filename = getAccessPath(filename);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error(e.getMessage() + "MultipartFile 转 file 错误");
@@ -47,15 +47,15 @@ public class FileUploadUtils {
 	}
 
 	// 将MP4转成gif，并返回视频时长和gifpath
-	public static final String[] convert2GIF(String ip, String port, String vedioPath, Integer uploadType)
+	public static final String[] convert2GIF( String vedioPath, Integer uploadType)
 			 {
 		String[] gifParam = new String[2];
 		String gifUploadPath = getUploadPath(uploadType);
 		String vedioUploadPath = getUploadPath(Constants.VEDIO_TYPE);
 		String gifPath = "";
 		// gif的文件名和vedio名称一样
-		gifPath = vedioPath.replace(ip + ":" + port + virtualPath + "/vedio", gifUploadPath).replace(".mp4", ".gif");
-		vedioPath = vedioPath.replace(ip + ":" + port + virtualPath + "/vedio", vedioUploadPath);
+		gifPath = vedioPath.replace(virtualPath + "/vedio", gifUploadPath).replace(".mp4", ".gif");
+		vedioPath = vedioPath.replace(virtualPath + "/vedio", vedioUploadPath);
 		// 创建gif文件目录，不写gif文件
 		File desc = getAbsoluteFile(gifPath, uploadType);
 		// 获取视频时长
@@ -63,7 +63,7 @@ public class FileUploadUtils {
 		// 将vedio转成gif
 		try {
 			FFMpegUtil.convetor(duration, "00:00:00", vedioPath, gifPath);
-			gifPath = getAccessPath(ip, port, gifPath);
+			gifPath = getAccessPath(gifPath);
 			gifParam[0] = String.valueOf(duration);
 			gifParam[1] = String.valueOf(gifPath);
 		} catch (Exception e) {
@@ -142,6 +142,9 @@ public class FileUploadUtils {
 			case Constants.JPG_TYPE:
 				uploadPath = uploadPath + "/jpg";
 				break;
+			case Constants.HEADPHOTO_TYPE:
+				uploadPath = uploadPath + "/headPhoto";
+				break;
 			default:
 				break;
 			}
@@ -161,11 +164,11 @@ public class FileUploadUtils {
 	 * @param filename
 	 * @return
 	 */
-	public static String getAccessPath(String ip, String port, String filename) {
+	public static String getAccessPath(String filename) {
 		String uploadPath = "";
 		try {
 			uploadPath = PropertiesUtil.readProperties("jdbc.properties").getProperty("filepath");
-			filename = filename.replace(uploadPath, ip + ":" + port + virtualPath);
+			filename = filename.replace(uploadPath, virtualPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error(e.getMessage() + "读取配置文件信息错误");

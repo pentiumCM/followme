@@ -19,4 +19,5 @@ public class Constants {
 	
 	public static final int JPG_TYPE = 3;
 	
+	public static final int HEADPHOTO_TYPE = 4;
 }

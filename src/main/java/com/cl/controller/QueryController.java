@@ -171,7 +171,7 @@ public class QueryController {
 	
 	/**
 	 * 根据活动id查询活动信息接口
-	 * @param actID 俱乐部id
+	 * @param actID 活动id
 	 * @param request
 	 * @return
 	 */
