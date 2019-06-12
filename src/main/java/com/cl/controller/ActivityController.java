@@ -97,8 +97,6 @@ public class ActivityController {
 		 * return JSON.toJSONString(commonResp); }
 		 */
 		log.info("开始上传视频");
-		String ip = request.getLocalAddr();
-		String port = String.valueOf(request.getLocalPort());
 		
 		//先插入activity数据，根据返回的主键，再插入picture和vedio
 		Activity activity = new Activity();
@@ -124,7 +122,7 @@ public class ActivityController {
 		for (MultipartFile picture : pictures) {
 			Picture activityPicture = new Picture();
 			activityPicture.setActType(Integer.valueOf(actType));
-			activityPicture.setPictureUrl(FileUploadUtils.upload(ip, port, picture, Constants.JPG_TYPE));
+			activityPicture.setPictureUrl(FileUploadUtils.upload(picture, Constants.JPG_TYPE));
 			activityPictureList.add(activityPicture);
 		}
 		log.info("pictures 信息已配置完成");
@@ -132,8 +130,8 @@ public class ActivityController {
 		String vedioPath = "";
 		String[] gifParam = new String[2];
 		Vedio vedio = new Vedio();
-		vedioPath = FileUploadUtils.upload(ip, port, vedioFile, Constants.VEDIO_TYPE);
-		gifParam = FileUploadUtils.convert2GIF(ip, port, vedioPath, Constants.GIF_TYPE);
+		vedioPath = FileUploadUtils.upload(vedioFile, Constants.VEDIO_TYPE);
+		gifParam = FileUploadUtils.convert2GIF(vedioPath, Constants.GIF_TYPE);
 		vedio.setDescription(introduction);
 		vedio.setDuration(Long.valueOf(gifParam[0]));
 		vedio.setGifPath(gifParam[1]);
