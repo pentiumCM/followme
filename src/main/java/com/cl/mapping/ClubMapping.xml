@@ -22,7 +22,7 @@
 
 	<select id="selectClubByActID" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
-		SELECT c.clubName,c.description FROM club c INNER JOIN
+		SELECT c.id,c.clubName,c.description FROM club c INNER JOIN
 		activity a ON c.id = a.clubID WHERE c.isDelete = '0' AND a.isDelete =
 		'0' AND a.id = #{actID}
 	</select>
