@@ -148,11 +148,11 @@
 
 		<!-- 读取项目里面的jar包 -->
 		<dependency>
-    		<groupId>jave</groupId>
-    		<artifactId>jave</artifactId>
-    		<version>1.0.2</version>
-    		<scope>system</scope>
-    		<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jave-1.0.2.jar</systemPath>
+			<groupId>jave</groupId>
+			<artifactId>jave</artifactId>
+			<version>1.0.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jave-1.0.2.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -284,7 +284,22 @@
 			<version>3.7.4.ALL</version>
 		</dependency>
 
-
+		<!--WebSocket 依赖 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
 
 
 

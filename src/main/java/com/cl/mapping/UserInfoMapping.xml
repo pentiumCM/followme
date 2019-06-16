@@ -8,22 +8,23 @@
 		<result column="profilePicture" property="profilePicture"
 			jdbcType="VARCHAR" />
 		<result column="IDCard" property="IDCard" jdbcType="VARCHAR" />
+		<result column="user_name" property="username" jdbcType="VARCHAR" />
 		<result column="isDelete" property="isDelete"
 			jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, userID, sex, profilePicture, IDCard, isDelete
+		id, userID, sex, profilePicture, IDCard, isDelete,user_name
 	</sql>
 
 	<select id="selectByUserID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT
-            <include refid="Base_Column_List" />
+        	ui.id, ui.userID, ui.sex, ui.profilePicture, ui.IDCard, ui.isDelete,u.user_name
         FROM
-            `userinfo`
+            `userinfo` ui INNER JOIN user u ON u.id = ui.userID
         WHERE
-            isDelete = '0'
-        AND userID = #{userID}
+            ui.isDelete = '0'
+        AND ui.userID = #{userID}
     </select>
 
 </mapper>

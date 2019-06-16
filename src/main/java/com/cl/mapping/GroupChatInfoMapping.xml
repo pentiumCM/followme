@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.GroupChatInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.cl.entity.GroupChatInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="groupChatID" property="groupChatID"
+			jdbcType="INTEGER" />
+		<result column="userID" property="userID" jdbcType="INTEGER" />
+		<result column="contentDate" property="contentDate"
+			jdbcType="TIMESTAMP" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="user_name" property="username"
+			jdbcType="VARCHAR" />
+		<result column="profilePicture" property="profilePicture"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,groupChatID,userID,contentDate,content,user_name,profilePicture
+	</sql>
+
+	<select id="selectByGroupChatID" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+
+		select
+		g.id,g.groupChatID,g.userID,g.contentDate,g.content,u.user_name,ui.profilePicture
+		FROM groupchatinfo g LEFT JOIN user u ON g.userID = u.id LEFT JOIN
+		userinfo ui ON g.userID = ui.userID WHERE g.groupChatID =
+			#{groupChatID} ORDER BY g.contentDate DESC
+	</select>
+
+<insert id="insert" parameterType="com.cl.entity.GroupChatInfo" >
+    INSERT INTO `groupchatinfo`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupChatID != null" >
+        groupChatID,
+      </if>
+      <if test="userID != null" >
+        userID,
+      </if>
+      <if test="contentDate != null" >
+        contentDate,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="groupChatID != null" >
+        #{groupChatID,jdbcType=INTEGER},
+      </if>
+      <if test="userID != null" >
+        #{userID,jdbcType=INTEGER},
+      </if>
+      <if test="contentDate != null" >
+        #{contentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+
+</mapper>

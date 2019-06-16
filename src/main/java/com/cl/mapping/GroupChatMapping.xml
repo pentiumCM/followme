@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.GroupChatMapper">
+	<resultMap id="BaseResultMap" type="com.cl.entity.GroupChat">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="actID" property="actID"
+			jdbcType="INTEGER" />
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="groupChatName" property="groupChatName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="IncludeGroupChatInfoResultMap"
+		type="com.cl.entity.GroupChat" extends="BaseResultMap">
+		<collection property="groupChatInfoList" ofType="GroupChatInfo"
+			select="com.cl.mapper.GroupChatInfoMapper.selectByGroupChatID" column="id" />
+	</resultMap>
+	
+
+	<sql id="Base_Column_List">
+		id,actID,createTime,groupChatName
+	</sql>
+	
+	<select id="selectUserGroupChatByGroupChatID" resultMap="IncludeGroupChatInfoResultMap" parameterType="java.util.List">
+	
+		select <include refid="Base_Column_List"></include> from groupchat where id IN
+		
+		<foreach collection="groupChatIDList" item="groupChatID"
+			open="(" close=")" separator=",">
+			#{groupChatID}
+		</foreach>
+		
+		
+	</select>
+
+
+
+
+
+
+
+</mapper>
