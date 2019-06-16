@@ -11,6 +11,8 @@ public class UserInfo {
 	
 	private String IDCard;
 	
+	private String username;
+	
 	private Integer isDelete;
 
 	public Integer getId() {
@@ -59,6 +61,14 @@ public class UserInfo {
 
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	

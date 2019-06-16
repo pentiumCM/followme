@@ -61,7 +61,13 @@ public class User {
 	 * 状态：（A-可用）（X-删除）
 	 */
 	private String state;
-
+	
+	/**
+	 * 状态：（1-leader）（2-normal user）
+	 */
+	/*
+	 * private Integer userType;
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
