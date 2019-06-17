@@ -44,9 +44,10 @@ public class ChatController {
 
 		
 		//登陆成功有session时，使用下面代码
-		 Integer userID = user.getId();
+		// Integer userID = user.getId();
 
 		//Integer userID = Integer.valueOf(request.getParameter("userID"));
+		Integer userID = 27;
 
 		
 		//获取用户所在聊天组的id
