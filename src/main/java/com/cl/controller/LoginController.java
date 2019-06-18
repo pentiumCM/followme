@@ -227,6 +227,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		if (user == null) {
 			// 用户名不存在
 			map.put("info", "fail");
+			map.put("status", 500);
 			return map;
 		}
 		// 用户名存在
@@ -234,6 +235,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		if (!user.getPassword().equals(encryptPassword)) {
 			// 用户名密码不匹配
 			map.put("info", "fail");
+			map.put("status", 500);
 			return map;
 		}
 		// 用户信息放入拦截器，权限管理
@@ -242,6 +244,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		session.setMaxInactiveInterval(30 * 60);
 		map.put("user", user);
 		map.put("info", "success");
+		map.put("status", 200);
 		return map;
 	}
 
@@ -269,6 +272,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		log.info("获取短信的手机号码:" + smsPhone);
 		if (!smsPhone.equals(phone)) {
 			map.put("info", "phoneError");
+			map.put("status", 500);
 			return map;
 		}
 		// 有效时间和正确的验证码
@@ -282,12 +286,15 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		// 2，比较验证码时间是否超时
 		if (createMsgCodeTime + qMsgFailureTime < loginTime) {
 			map.put("info", "timeOut");
+			map.put("status", 500);
 		} else {
 			// 3，比较验证码是否相同
 			if (msgCode.equals(validMsgCode)) {
 				map.put("info", "success");
+				map.put("status", 200);
 			} else {
 				map.put("info", "msgCodeErr");
+				map.put("status", 500);
 			}
 		}
 
@@ -298,6 +305,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		session.setMaxInactiveInterval(30 * 60);
 		map.put("user", user);
 		map.put("info", "success");
+		map.put("status", 200);
 		return map;
 	}
 
@@ -324,6 +332,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 			log.info("获取短信的手机号码:" + smsPhone);
 			if (!smsPhone.equals(strj.getString("phone"))) {
 				map.put("info", "phoneError");
+				map.put("status", 500);
 				return map;
 			}
 			user.setPhone(strj.getString("phone"));
@@ -333,11 +342,13 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 			log.info("获取验证码的邮箱:" + email);
 			if (!email.equals(strj.getString("email"))) {
 				map.put("info", "emailError");
+				map.put("status", 500);
 				return map;
 			}
 			user.setEmail(strj.getString("email"));
 		} else {
 			map.put("info", "fail");
+			map.put("status", 500);
 			return map;
 		}
 		// 将密码加密
@@ -346,6 +357,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		user.setPassword(encryptPassword);
 		// 向数据库插入值
 		map.put("info", userService.insert(user));
+		map.put("status", 200);
 		return map;
 	}
 
@@ -366,6 +378,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		String smsPhone = (String) session.getAttribute("forgetPwdPhone");
 		if (!smsPhone.equals(strj.get("phone"))) {
 			map.put("info", "phoneError");
+			map.put("status", 500);
 			return map;
 		}
 		// 通过用户名找到对应用户
@@ -375,12 +388,14 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		// 2，判断新密码与旧密码是否相同
 		if (encryptPassword.equals(user.getPassword())) {
 			map.put("info", "pwdError");
+			map.put("status", 500);
 			return map;
 		}
 		// 与旧密码不相同，重置密码
 		user.setPassword(encryptPassword);
 		// 3,修改密码,并返回
 		map.put("info", userService.updateById(user));
+		map.put("status", 200);
 		return map;
 	}
 
@@ -400,6 +415,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		// 2，判断新密码与旧密码是否相同
 		if (encryptPassword.equals(user.getPassword())) {
 			map.put("info", "pwdError");
+			map.put("status", 500);
 			return map;
 		}
 		// 给用户输入的密码加密
@@ -407,6 +423,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		user.setPassword(strj.getString("password"));
 		// 3,修改密码
 		map.put("info", userService.updateById(user));
+		map.put("status", 200);
 		// 4,判断是否修改成功
 		return map;
 	}
@@ -439,6 +456,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		// 发送验证码
 		// 腾讯云 返回值=0 成功
 		map.put("info", qSmsUtil.sendQcloudSms(QcloudPhone, phoneType));
+		map.put("status", 200);
 		return map;
 	}
 
@@ -473,6 +491,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 			validTime = (String) session.getAttribute("forgetPwdFailureTime");
 		} else {
 			map.put("info", "msgCodeErr");
+			map.put("status", 500);
 		}
 		log.info("短信验证码有效时间:" + validTime);
 		log.info("短信验证码:" + validMsgCode);
@@ -483,12 +502,15 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		// 2，比较验证码时间是否超时
 		if (createMsgCodeTime + qMsgFailureTime < registerTime) {
 			map.put("info", "timeOut");
+			map.put("status", 500);
 		} else {
 			// 3，比较验证码是否相同
 			if (msgCode.equals(validMsgCode)) {
 				map.put("info", "success");
+				map.put("status", 200);
 			} else {
 				map.put("info", "msgCodeErr");
+				map.put("status", 500);
 			}
 		}
 		return map;
@@ -520,6 +542,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		session.setAttribute(emailType, email);
 		String[] receiveMailAccount = new String[] { email };
 		map.put("info", mailUtil.sendMail(emailType, receiveMailAccount));
+		map.put("status", 200);
 		return map;
 	}
 
@@ -553,6 +576,7 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 			validTime = (String) session.getAttribute("forgetPwdEmailTime");
 		} else {
 			map.put("info", "emailCodeErr");
+			map.put("status", 500);
 		}
 		log.info("邮箱验证码有效时间:" + validTime);
 		log.info("邮箱验证码:" + validEmailCode);
@@ -563,12 +587,15 @@ PropertiesUtil propertiesUtil = new PropertiesUtil();
 		// 2，比较验证码时间是否超时
 		if (createEmailCodeTime + emailFailureTime < registerTime) {
 			map.put("info", "timeOut");
+			map.put("status", 500);
 		} else {
 			// 3，比较验证码是否相同
 			if (emailCode.equals(validEmailCode)) {
 				map.put("info", "success");
+				map.put("status", 200);
 			} else {
 				map.put("info", "emailCodeErr");
+				map.put("status", 500);
 			}
 		}
 		return map;
