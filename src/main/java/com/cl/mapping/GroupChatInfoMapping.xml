@@ -27,7 +27,7 @@
 		g.id,g.groupChatID,g.userID,g.contentDate,g.content,u.user_name,ui.profilePicture
 		FROM groupchatinfo g LEFT JOIN user u ON g.userID = u.id LEFT JOIN
 		userinfo ui ON g.userID = ui.userID WHERE g.groupChatID =
-			#{groupChatID} ORDER BY g.contentDate DESC
+			#{groupChatID} ORDER BY g.contentDate ASC
 	</select>
 
 <insert id="insert" parameterType="com.cl.entity.GroupChatInfo" >
