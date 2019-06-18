@@ -94,7 +94,7 @@ public class SocketServer {
 		System.out.println("来自客户端的消息:" + strj);
 		Timestamp contentDate = Timestamp.valueOf(strj.getString("contentDate"));
 		String content = strj.getString("content");
-		Integer groupChatID = Integer.valueOf(strj.getString("groupChatID"));
+		Integer groupChatID = Integer.valueOf(strj.getInt("groupChatID"));
 		GroupChatInfo groupChatInfo = new GroupChatInfo();
 		groupChatInfo.setUserID(userID);
 		groupChatInfo.setContentDate(contentDate);
