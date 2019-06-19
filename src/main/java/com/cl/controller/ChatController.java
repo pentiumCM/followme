@@ -33,10 +33,9 @@ public class ChatController {
 
 	@Autowired
 	GroupChatService groupChatService;
-	
+
 	@Autowired
 	GroupChatInfoService groupChatInfoService;
-
 
 	/**
 	 * 查询一个用户所在的所有聊天组，以及每个聊天组的所有聊天信息
@@ -48,69 +47,67 @@ public class ChatController {
 	@RequestMapping(value = "/getUserAllChatLog", method = RequestMethod.POST)
 	public String getUserAllChatLog(HttpServletRequest request, HttpSession session) {
 		User user = (User) session.getAttribute("USER_SESSION");
-		//User user = (User)session.getAttribute("USER_SESSION");
-		
-		//user 未登录就返回
-		/*if (user == null) {
-			commonResp = new CommonResp(Constants.NOLOGIN_CODE, "no user login", null);
-			return JSON.toJSONString(commonResp);
-		}*/
-		
-		
-		//登陆成功有session时，使用下面代码
-		// Integer userID = user.getId();
 
-		//Integer userID = Integer.valueOf(request.getParameter("userID"));
+		CommonResp commonResp = null;
+
+		// user 未登录就返回
+
+		/*
+		 * if (user == null) { commonResp = new CommonResp(Constants.NOLOGIN_CODE,
+		 * "no user login", null); return JSON.toJSONString(commonResp); }
+		 * 
+		 * // 登陆成功有session时，使用下面代码 Integer userID = user.getId();
+		 */
+		
 		Integer userID = 27;
 
-		
-		//获取用户所在聊天组的id
+		// 获取用户所在聊天组的id
 		List<Chat> chatList = chatService.selectGroupChatIDByUserID(userID);
 		List<Integer> groupChatIDList = new ArrayList<Integer>();
 		for (Chat chat : chatList) {
 			groupChatIDList.add(chat.getGroupChatID());
 		}
 
-		//根据聊天组的id，获取每个聊天组的聊天信息
+		// 根据聊天组的id，获取每个聊天组的聊天信息
 		List<GroupChat> groupChatList = groupChatService.selectUserGroupChatByGroupChatID(groupChatIDList);
-		
-		CommonResp commonResp = new CommonResp(Constants.SUCCESS_CODE, "success", groupChatList);
+
+		commonResp = new CommonResp(Constants.SUCCESS_CODE, "success", groupChatList);
 		return JSON.toJSONString(commonResp);
 	}
-	
-	
+
 	@RequestMapping(value = "/getGroupChatLog", method = RequestMethod.POST)
-	public String getGroupChatLog(HttpServletRequest request, HttpSession session){
+	public String getGroupChatLog(HttpServletRequest request, HttpSession session) {
 		CommonResp commonResp = null;
-		//User user = (User)session.getAttribute("USER_SESSION");
+		//User user = (User) session.getAttribute("USER_SESSION");
+
+		// user 未登录就返回
+		/*
+		 * if (user == null) { commonResp = new CommonResp(Constants.NOLOGIN_CODE,
+		 * "no user login", null); return JSON.toJSONString(commonResp); }
+		 * 
+		 * Integer userID = user.getId();
+		 */
+
 		
-		//user 未登录就返回
-		/*if (user == null) {
-			commonResp = new CommonResp(Constants.NOLOGIN_CODE, "no user login", null);
-			return JSON.toJSONString(commonResp);
-		}
-		
-		Integer userID = user.getId();*/
-		
-		
-		Integer userID = 27;
-		User user = new User();
-		user.setId(27);
-		
-		//获取用户所在聊天组的id
+		  Integer userID = 27; 
+		  User user = new User(); 
+		  user.setId(27);
+		 
+
+		// 获取用户所在聊天组的id
 		List<Chat> chatList = chatService.selectGroupChatIDByUserID(userID);
 		List<Integer> groupChatIDList = new ArrayList<Integer>();
 		for (Chat chat : chatList) {
 			groupChatIDList.add(chat.getGroupChatID());
 		}
-		
-		//判断此用户在不在这个讨论组
+
+		// 判断此用户在不在这个讨论组
 		Integer groupChatID = Integer.valueOf(request.getParameter("groupChatID"));
 		if (!groupChatIDList.contains(groupChatID)) {
 			commonResp = new CommonResp(Constants.ERROR_CODE, "this user is not in this chat group", null);
 			return JSON.toJSONString(commonResp);
 		}
-		
+
 		List<GroupChatInfo> groupChatInfoList = groupChatInfoService.selectByGroupChatID(groupChatID);
 		Map<String, Object> map = new HashMap<>();
 		map.put("groupChatInfoList", groupChatInfoList);
