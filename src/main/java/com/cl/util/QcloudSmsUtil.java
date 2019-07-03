@@ -49,7 +49,7 @@ public class QcloudSmsUtil {
 	/**
 	 * 资源文件路径
 	 */
-	private String qcloudSmsProperties = "resource/qcloudSms.properties";
+	private String qcloudSmsProperties = "qcloudSms.properties";
 
 	PropertiesUtil pUtil = new PropertiesUtil();
 
