@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.AdminMapper">
+	<resultMap id="BaseResultMap" type="com.cl.entity.Admin">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="login" property="login" jdbcType="VARCHAR" />
+		<result column="password" property="password"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,login,password
+	</sql>
+
+	<select id="selectAdmin" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+
+		select
+		<include refid="Base_Column_List"></include>
+		from admin where login = #{login} and password = #{password}
+
+	</select>
+
+
+
+
+
+
+
+</mapper>

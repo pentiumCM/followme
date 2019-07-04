@@ -3,6 +3,11 @@
  */
 
 /**
+ * vue实例对象
+ */
+const G_vCall = new Vue({});
+
+/**
  * 更改表格行样式
  * @param row
  * @param index 当前行索引
@@ -62,7 +67,7 @@ function messageInfo(vue, content) {
 function messageWarning(vue, content) {
     vue.$Message.warning({
         content: content,
-        duration: 10,
+        duration: 4,
         closable: true
     });
 }

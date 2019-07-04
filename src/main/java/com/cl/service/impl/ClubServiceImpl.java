@@ -19,4 +19,16 @@ public class ClubServiceImpl implements ClubService {
 		return clubMapper.selectClubByActID(actID);
 	}
 
+	@Override
+	public void insert(Club club) {
+		clubMapper.insert(club);
+		
+	}
+
+	@Override
+	public Club selectClubByClubLogin(String clubLogin) {
+		// TODO Auto-generated method stub
+		return clubMapper.selectClubByClubLogin(clubLogin);
+	}
+
 }
