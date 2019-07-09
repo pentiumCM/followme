@@ -1,6 +1,10 @@
 package com.cl.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,14 +31,22 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/loginAdmin", method = RequestMethod.POST)
-	public String adminLogin(@RequestParam(value = "login", required = true) String login,
-			@RequestParam(value = "password", required = true) String password) {
-		Admin admin = adminService.selectAdmin(login, password);
+	public String adminLogin(HttpServletRequest request, @RequestBody String str) {
+		JSONObject strj = new JSONObject(str);
+		String login = strj.getString("username");
+		String password = strj.getString("password");
+		String verify = strj.getString("verify");
+		String verifyString = (String) request.getSession().getAttribute("verify");
 		CommonResp commonResp = null;
-		if (admin == null) {
-			commonResp = new CommonResp(Constants.ERROR_CODE, "password wrong", null);
+		if (!verify.equalsIgnoreCase(verifyString)) {
+			commonResp = new CommonResp(Constants.VERIFY_ERROR_CODE, "verify error", null);
 		} else {
-			commonResp = new CommonResp(Constants.SUCCESS_CODE, "admin login success", null);
+			Admin admin = adminService.selectAdmin(login, password);
+			if (admin == null) {
+				commonResp = new CommonResp(Constants.LOGIN_ERROR_CODE, "password wrong", null);
+			} else {
+				commonResp = new CommonResp(Constants.SUCCESS_CODE, "admin login success", null);
+			}
 		}
 		return JSON.toJSONString(commonResp);
 	}

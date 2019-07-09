@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工程教育认证-注册界面</title>
+    <script type="text/javascript" src="../public/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="../club/css/register.css">
+</head>
+<body>
+<div class="whole">
+    <div class="head">
+        <hr>
+    </div>
+    <div id="register" class="body" v-cloak>
+        <div class="content">
+            <div class="content-head">欢迎注册</div>
+            <div class="tips">
+                <span class="tips-text">已有账号？</span>
+                <a class="tips-link" :href="loginURL">快捷登录 ></a>
+            </div>
+            <div class="content-body">
+
+
+                <div class="div_item">
+                    <div class="div_input div_left">
+                        <span class="span_show">用&nbsp;&nbsp;户&nbsp;&nbsp;名:</span>
+                        <i-input type="text" placeholder="请输入用户名" v-model="clubLogin" size="large" clearable
+                                 class="long_input"/>
+                    </div>
+                    <div class="error_font div_right">{{loginNameFindErr}}</div>
+                </div>
+
+				<div class="div_item">
+                    <div class="div_input div_left">
+                        <span class="span_show">俱乐部名:</span>
+                        <i-input type="text" placeholder="请输入俱乐部名称" v-model="clubName" size="large" clearable
+                                 class="long_input"/>
+                    </div>
+                </div>
+
+                <div class="div_item">
+                    <div class="div_input div_left">
+                        <span class="span_show">登陆密码:</span>
+                        <i-input type="password" placeholder="请输入密码" v-model="password" size="large" clearable
+                                 class="long_input" @on-blur="checkPassword()"/>
+                    </div>
+                    <!--<p class="passwordTip">{{passwordTip}}</p>-->
+                    <div class="error_font div_right">{{passwordErr}}</div>
+                </div>
+
+                <div class="div_item">
+                    <div class="div_input div_left">
+                        <span class="span_show">密码确认:</span>
+                        <i-input type="password" placeholder="请再次输入密码" v-model="password1" size="large" clearable="true"
+                                 class="long_input" @on-blur="compare()"/>
+                    </div>
+                    <div class="error_font div_right">{{passwordErr1}}</div>
+                </div>
+                <div class="div_item">
+                    <div class="div_input div_left">
+                        <span class="span_show">简单描述:</span>
+                        <i-input type="textarea" placeholder="请输入俱乐部简单描述" v-model="description" size="large" clearable
+                                 class="long_input"/>
+                    </div>
+                </div>
+                
+                 <div class="div_item">
+                    <div class="div_input div_left">
+                        <span class="span_show">图形验证: </span>
+                        <span>
+                            <i-input type="text" v-model="picCode"
+                                     placeholder="请输入验证码" size="large" clearable class="short_input"
+                                    ></i-input>
+                        </span>
+                        <span>
+                            <img id="registerImg" :src="imgSrc"
+                                 onclick="refreshRegister()" class="register_picCode">
+                        </span>
+                    </div>
+                    <div class="error_font div_right">{{picCodeErr}}</div>
+                </div>
+
+                <div class="div_item">
+                    <div class="div_input div_left">
+                        <i-button id="btnRegister" type="info" @click="checkRegister" long class="register_button">注册
+                        </i-button>
+                    </div>
+                </div>
+                <div class="div_item_bottom"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot"></div>
+<script src="../club/js/register.js"></script>
+</body>
+</html>
