@@ -13,6 +13,12 @@ public class Constants {
 	
 	public static final String INVALID_FILE_CODE = "503";
 	
+	public static final String VERIFY_ERROR_CODE = "504";
+	
+	public static final String LOGIN_ERROR_CODE = "505";
+	
+	public static final String CLUB_LOGIN_ERROR_CODE = "506";
+	
 	public static final int VEDIO_TYPE = 1;
 	
 	public static final int GIF_TYPE = 2;

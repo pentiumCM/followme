@@ -29,6 +29,31 @@ public class LogUtil {
 	 * @param title 日志文件标题
 	 * @param sWord 要写入日志里的文本内容
 	 */
+	public static void logResult(String title, String sWord, String logPath) {
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(logPath + "log_" + DateFormat.formatCode(new Date()) + "_" + title + ".txt");
+			writer.write(sWord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * 写日志
+	 * 
+	 * @param title 日志文件标题
+	 * @param sWord 要写入日志里的文本内容
+	 */
 	public static void logResult(String title, String sWord) {
 		FileWriter writer = null;
 		try {

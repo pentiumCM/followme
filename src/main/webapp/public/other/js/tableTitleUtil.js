@@ -1,5 +1,6 @@
 /**
  * 表头多选，使用unshift()头部添加
+ *
  * @return {{type: string, width: number, align: string}}
  */
 function headSelection() {
@@ -14,8 +15,11 @@ function headSelection() {
 
 /**
  * 加载表头
- * @param key 键-数据库表字段名称
- * @param title 值-表格显示名称
+ *
+ * @param key
+ *            键-数据库表字段名称
+ * @param title
+ *            值-表格显示名称
  * @returns {Array} 表头集合
  */
 function showCol(key, title) {
@@ -34,8 +38,11 @@ function showCol(key, title) {
 
 /**
  * 加载slot-scope表头 需要手动添加template
- * @param key 键-数据库表字段名称
- * @param title 值-表格显示名称
+ *
+ * @param key
+ *            键-数据库表字段名称
+ * @param title
+ *            值-表格显示名称
  * @returns {Array} 表头集合
  */
 function showColSlot(key, title) {
@@ -55,12 +62,19 @@ function showColSlot(key, title) {
 
 /**
  * 自定义表头列模板，通过push() 结尾添加
- * @param is_dtl 是否显示详情按钮
- * @param dtlFunc 详情展示方法，若无写null
- * @param is_edit 是否显示编辑按钮
- * @param editFunc 编辑方法，若无写null
- * @param is_del 是否显示删除按钮
- * @param delFunc 删除方法，若无写null
+ *
+ * @param is_dtl
+ *            是否显示详情按钮
+ * @param dtlFunc
+ *            详情展示方法，若无写null
+ * @param is_edit
+ *            是否显示编辑按钮
+ * @param editFunc
+ *            编辑方法，若无写null
+ * @param is_del
+ *            是否显示删除按钮
+ * @param delFunc
+ *            删除方法，若无写null
  * @returns 自定义列模板
  */
 function headAction(is_dtl, dtlFunc, is_edit, editFunc, is_del, delFunc) {
@@ -89,7 +103,7 @@ function headAction(is_dtl, dtlFunc, is_edit, editFunc, is_del, delFunc) {
                                 dtlFunc(params.index)
                             }
                         }
-                    }, '详情')
+                    }, '备注详情')
                 )
             }
             if (is_edit) {
@@ -139,10 +153,13 @@ function headAction(is_dtl, dtlFunc, is_edit, editFunc, is_del, delFunc) {
         }
     };
     return action;
+
+
 }
 
 /**
  * 加载slot-scope操作栏
+ *
  * @return 操作栏
  */
 function headActionSlot() {
@@ -152,6 +169,143 @@ function headActionSlot() {
         width: 200,
         align: 'center'
     };
+    return action;
+}
+
+function delAction(action, delFunc) {
+    // 初始化表头action
+    let actionWithDel = action;
+    console.log(actionWithDel);
+    actionWithDel.key = 'action';
+    actionWithDel.render = (h, params) => {
+        let btns = [];
+        btns.push(h('Poptip', {
+                props: {
+                    confirm: true,
+                    type: 'error',
+                    size: 'large',
+                    title: '您确定要删除吗?'
+                },
+                on: {
+                    'on-ok': () => {
+                        delFunc(params.index);
+                    }
+                }
+            }, [h('Button', {
+                props: {
+                    type: 'warning',
+                    size: 'small'
+                },
+                style: {
+                    marginRight: '5px'
+                },
+            }, '删除')
+            ])
+        );
+        return h("div", btns)
+    };
+    return actionWithDel;
+}
+
+/**
+ * 添加备注remark列信息
+ *
+ * @return 操作栏
+ */
+function remark() {
+    var action =
+        {
+            title: '备注',
+            key: 'remark',
+            render: (h, params) => {
+                let texts = '';// 表格显示的文字
+                let remark = params.row.remark;
+                if (remark === null || remark === "") {
+                    return;
+                }
+                if (remark.length <= 6) {
+                    texts = params.row.remark;
+                }
+                else {
+                    texts = (params.row.remark).substring(0, 6) + ".....";
+                }
+
+                let str = '';// 鼠标移入时显示的文字
+                str = params.row.remark;
+                return h(
+                    "tooltip",
+                    {
+                        props: {
+                            placement: "bottom",
+                            transfer: true,
+                            marginLeft: '-30px'
+                        }
+                    },
+                    [
+                        texts,
+                        h(
+                            "span",// 控制文字样式，可以换行显示
+                            {
+                                slot: "content",
+                                style: {whiteSpace: "normal", wordBreak: "break-all"}
+                            },
+                            str
+                        )
+                    ]
+                )
+            }
+        };
+
+    return action;
+}
+
+/**
+ * 添加描述description列信息
+ *
+ * @return 操作栏
+ */
+function description() {
+    var action =
+        {
+            title: '角色描述',
+            key: 'description',
+            render: (h, params) => {
+                let texts = '';// 表格显示的文字
+                if (params.row.description !== null && params.row.description !== "") {
+                    if (params.row.description.length <= 6) {
+                        texts = params.row.description;
+                    } else {
+                        texts = (params.row.description).substring(0, 6) + ".....";
+                    }
+                }
+
+
+                let str = '';// 鼠标移入时显示的文字
+                str = params.row.description;
+                return h(
+                    "tooltip",
+                    {
+                        props: {
+                            placement: "bottom",
+                            transfer: true,
+                            marginLeft: '-30px'
+                        }
+                    },
+                    [
+                        texts,
+                        h(
+                            "span",// 控制文字样式，可以换行显示
+                            {
+                                slot: "content",
+                                style: {whiteSpace: "normal", wordBreak: "break-all"}
+                            },
+                            str
+                        )
+                    ]
+                )
+            }
+        };
+
     return action;
 }
 

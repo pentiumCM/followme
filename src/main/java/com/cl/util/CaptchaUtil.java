@@ -3,7 +3,17 @@ package com.cl.util;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 图形验证码工具类
@@ -95,4 +105,5 @@ public class CaptchaUtil implements Serializable {
 		int b = fc + random.nextInt(bc - fc);
 		return new Color(r, g, b);
 	}
+	
 }

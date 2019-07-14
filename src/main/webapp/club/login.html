@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>followme_clublogin</title>
+<script type="text/javascript" src="../public/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../club/css/login.css">
+</head>
+<body>
+
+	<div class="login">
+		<!-- 登录 -->
+		<center>
+			<font
+				style="font-size: 40pt; filter: shadow(color = #9370db); width: 100%; color: #ffebcd; line-height: 150%; font-family: 隶书">Followme后台管理系统
+				</b>
+			</font>
+		</center>
+		<div class="login-con" id="login">
+		<Card :bordered="false">
+			<div slot="title" class="card-title">
+				<span v-show="loginType == 'club'">club登录</span> 
+				<span
+					v-show="loginType == 'admin'">admin登录</span>
+			</div>
+			
+			<div class="card-change">
+				<a v-show="loginType == 'admin'" @click="loginByClub"> <Icon
+						:size="14" type="log-in"></Icon> club登录
+				</a> <a v-show="loginType == 'club'" @click="loginByAdmin" class="a">
+					<Icon :size="16" type="iphone"></Icon> admin登录
+				</a>
+			</div>
+			<div class="form-con">
+				<p class="login-error" v-show="loginType == 'club'">{{loginError}}</p>
+				<p class="login-error" v-show="loginType == 'admin'">{{loginError}}</p>
+				<!--账户表单-->
+				<div>
+					<i-form ref="clubForm" :model="clubForm" :rules="clubRules">
+					<form-item prop="userName"> <i-input
+						v-model="clubForm.userName" placeholder="请输入用户名"> <span
+						slot="prepend"> <Icon :size="16" type="person"></Icon>
+					</span></i-input> </form-item> <form-item prop="password"> <i-input type="password"
+						v-model="clubForm.password" placeholder="请输入密码"> <span
+						slot="prepend"> <Icon :size="14" type="locked"></Icon>
+					</span></i-input> </form-item> <form-item prop="code"> <i-input type="text"
+						v-model="clubForm.code" placeholder="请输入验证码" size="large"
+						class="login-codeStyle"></i-input> <img class="login-imgStyle"
+						id="accountImg" :src="imgSrc" onclick="refreshAccountImg()">
+					</form-item> <form-item> <i-button @click="loginSubmit"
+						type="primary" long>登录 </i-button> </form-item> </i-form>
+				</div>
+				<!--手机表单-->
+				<div class="login-bottom" v-show="loginType == 'club'">
+					<a class="login-tip" :href = "registerURL">注册</a> | 
+					<a class="login-tip" id="forgetPwd">忘记密码？</a>
+				</div>
+			</div>
+		</div>
+		
+		</Card>
+	</div>
+	<div class="footer">
+		<span class="footerSpan">JIT SOSE团队开发</span>
+	</div>
+	<script src="../club/js/login.js"></script>
+</body>
+</html>
