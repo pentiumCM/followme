@@ -47,3 +47,4 @@ document.write("<script type='text/javascript' src='" + PROJECT_NAME + "/public/
 // 解决页面favicon.ico 404错误
 document.write("<link rel='bookmark' href='" + PROJECT_NAME + "/favicon.ico' type='image/x-icon'>");
 
+

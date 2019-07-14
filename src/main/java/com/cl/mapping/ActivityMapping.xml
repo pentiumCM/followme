@@ -131,7 +131,7 @@
 	<select id="selectActivityByClubID"
 		resultMap="IncludePictureResultMap" parameterType="java.lang.Integer">
 		SELECT
-		a.actCost,a.actTitle,a.id FROM activity a INNER
+		a.actCost,a.actTitle,a.id,a.beginCity,a.actCurPerson,a.beginTime,a.introduction FROM activity a INNER
 		JOIN club c ON a.clubID
 		= c.id WHERE c.isDelete = '0' AND a.isDelete =
 		'0' AND a.clubID =

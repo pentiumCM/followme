@@ -20,9 +20,10 @@ var vRole = new Vue({
         }
     },
     components: {
-        'layout-header': httpVueLoader('/layout/layout-header.vue'),
-        'layout-sider': httpVueLoader('/layout/layout-sider.vue'),
-        'layout-footer': httpVueLoader('/layout/layout-footer.vue')
+        'layout-header': httpVueLoader('../layout/layout-header.vue'),
+        'layout-sider': httpVueLoader('../layout/layout-sider.vue'),
+        'layout-breadcrumb': httpVueLoader('../layout/layout-breadcrumb.vue'),
+        'layout-footer': httpVueLoader('../layout/layout-footer.vue')
     },
     mounted() {
         messageConfig(this);// 全局提示配置
@@ -63,8 +64,8 @@ var vRole = new Vue({
                     checkLength(this.sRole.name, '64', '角色名称不能超过64个字符')) {
                     return;
                 }
-            console.log('当前页：' + this.pageNum);
-            console.log('页面大小：' + this.pageSize);
+            //console.log('当前页：' + this.pageNum);
+            //console.log('页面大小：' + this.pageSize);
             let data = {
                 pageNum: this.pageNum,
                 pageSize: this.pageSize,
@@ -179,7 +180,7 @@ var vRole = new Vue({
          * @param index 当前数据索引
          */
         openEditRoleModal(index) {
-            console.log(this.nowData[index]);
+            //console.log(this.nowData[index]);
             this.role.id = this.nowData[index].id;
             this.role.key = this.nowData[index].key;
             this.role.name = this.nowData[index].name;
@@ -188,7 +189,7 @@ var vRole = new Vue({
 //           this.role.enable=this.nowData[index].enable;
            this.role.enable=this.nowData[index].enableString;
            
-           console.log(this.role.enable);
+           //console.log(this.role.enable);
             // 打开模态框
             this.editRoleModal = true;
         },
@@ -203,7 +204,7 @@ var vRole = new Vue({
                      checkLength(this.role.name, '64', '角色名称不能超过64个字符')) {
                      return;
                  }
-        	 console.log(this.role);
+        	 //console.log(this.role);
         	 if(this.role.enable === '启用'){
         		 this.role.enable = true;
         	 }else {
@@ -217,7 +218,7 @@ var vRole = new Vue({
                      description:this.role.description
                      
         	}
-        	console.log(data)
+        	//console.log(data)
              let url = this.firstPath + '/update';
              callAjaxPost(url, data, this.editRoleSuc);
              // 打开加载提示
@@ -269,7 +270,7 @@ var vRole = new Vue({
          */
         onSelectionChange(selection) {
             this.selection = selection;
-            console.log(this.selection);
+            //console.log(this.selection);
         },
 
         /**
@@ -295,7 +296,7 @@ var vRole = new Vue({
             for (var i = 0; i < this.selection.length; i++) {
                 idList[i] = this.selection[i].id;
             }
-            console.log(idList);
+            //console.log(idList);
             var data = idList;
             var url =  this.firstPath + '/deleteSelection';
             callAjaxPost(url, data, this.removeRoleSelectSuc);
