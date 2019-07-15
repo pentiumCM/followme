@@ -89,6 +89,12 @@ function LoginSuc(data) {
 			window.sessionStorage.setItem("clubName", data.obj.clubName);
 			window.location.href = METHOD_URL + PROJECT_NAME + "/club/activityList.html"
 		}
+		if (vLogin.loginType == 'admin') {
+			console.log("------------");
+			window.sessionStorage.setItem("adminName", "admin");
+			console.log(METHOD_URL + PROJECT_NAME + "/admin/clubList.html");
+			window.location.href = METHOD_URL + PROJECT_NAME + "/admin/clubList.html"
+		}
 		console.log("success");
 	}
 }

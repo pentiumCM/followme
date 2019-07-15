@@ -10,4 +10,6 @@ public interface UserActMapper {
 
 	List<UserAct> selectAllUsersByClubID(@Param("clubID") Integer clubID);
 	
+	List<UserAct> getAllUsers();
+	
 }

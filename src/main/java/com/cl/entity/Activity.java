@@ -24,6 +24,8 @@ public class Activity {
 	private String actCost;
 
 	private String introduction;
+	
+	private String clubName;
 
 	private Integer insurance;
 
@@ -153,6 +155,14 @@ public class Activity {
 
 	public void setPictureList(List<Picture> pictureList) {
 		this.pictureList = pictureList;
+	}
+
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
 	}
 
 	

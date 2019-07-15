@@ -36,6 +36,12 @@
 		FROM club WHERE isDelete = '0' AND clubLogin = #{clubLogin}
 	</select>
 
+	<select id="getAllClubs" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM club WHERE isDelete = '0'
+	</select>
+
 	<insert id="insert" parameterType="com.cl.entity.Club">
 		INSERT INTO `club`
 		<trim prefix="(" suffix=")" suffixOverrides=",">

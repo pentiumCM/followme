@@ -12,5 +12,7 @@ public interface ActivityMapper {
 	
 	List<Activity> selectActivityByClubID(@Param("clubID") Integer clubID);
 	
+	List<Activity> getAllActivities();
+	
 	Activity selectActivityByActID(@Param("actID") Integer actID);
 }
