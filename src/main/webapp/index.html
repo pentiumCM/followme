@@ -1,39 +1,8 @@
 <html>
 <body>
-<h1>Socket Test</h1>
-<input type="text" id="lmz_sendText">
-<button id="lmz_sendBtn">send</button>
+<script src= "./public/common.js" type="text/javascript"></script>	
 <script type="text/javascript">
-    var websocket = new WebSocket("ws://localhost:8080/followme/chat/7");
-    function showMessage(str){
-        var div = document.createElement("div");
-        div.innerHTML = str;
-        document.body.appendChild(div);
-        }
-
-    websocket.onopen = function(){
-        console.log("socket open");
-        document.getElementById("lmz_sendBtn").onclick = function(){
-         var txt =  document.getElementById("lmz_sendText").value;
-         var text = {
-        		 "contentDate":"2019-06-14 00:00:00",
-        		 "content":txt,
-        		 "groupChatID":"1"
-         }
-        
-         
-         if(txt){
-            websocket.send( JSON.stringify(text));
-         }
-     }
-    }
-    websocket.close = function(){
-         console.log("socket close");
-    }
-    websocket.onmessage = function(e){
-        console.log(e.data);
-        showMessage(e.data)
-    } 
+    window.location.href = METHOD_URL + PROJECT_NAME + "/club/login.html"
     </script>
 </body>
 </html>

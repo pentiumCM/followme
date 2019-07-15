@@ -14,6 +14,7 @@ public interface ActivityService {
 	
 	List<Activity> selectActivityByClubID(Integer clubID);
 	
+	List<Activity> getAllActivities();
 	
 	Activity selectActivityByActID(Integer actID);
 }

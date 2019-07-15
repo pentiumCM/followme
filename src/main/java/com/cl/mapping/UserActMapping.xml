@@ -12,6 +12,8 @@
 		<result column="beginCity" property="beginCity"
 			jdbcType="VARCHAR" />
 		<result column="actCost" property="actCost" jdbcType="VARCHAR" />
+		<result column="clubName" property="clubName"
+			jdbcType="VARCHAR" />
 		<result column="introduction" property="introduction"
 			jdbcType="VARCHAR" />
 	</resultMap>
@@ -27,11 +29,21 @@
 		SELECT
 		u.user_name,a.actTitle,a.beginCity,a.actCost,a.introduction FROM
 		useract ua INNER JOIN user u ON ua.userID = u.id INNER JOIN activity
-		a ON ua.actID = a.id AND a.isDelete =
+		a
+		ON ua.actID = a.id AND a.isDelete =
 		'0' AND a.clubID =
 		#{clubID}
 	</select>
 
-
+	<select id="getAllUsers" resultMap="BaseResultMap">
+	SELECT
+	u.user_name,a.actTitle,a.beginCity,a.actCost,a.introduction,c.clubName
+	FROM
+	useract ua INNER JOIN user u ON ua.userID = u.id INNER JOIN
+	activity
+	a ON ua.actID = a.id INNER JOIN club c ON c.id = a.clubID AND
+	a.isDelete =
+	'0'
+	</select>
 
 </mapper>

@@ -19,6 +19,8 @@
 		<result column="actCost" property="actCost" jdbcType="VARCHAR" />
 		<result column="introduction" property="introduction"
 			jdbcType="VARCHAR" />
+			<result column="clubName" property="clubName"
+			jdbcType="VARCHAR" />
 		<result column="insurance" property="insurance"
 			jdbcType="INTEGER" />
 		<result column="clubID" property="clubID" jdbcType="INTEGER" />
@@ -136,6 +138,15 @@
 		= c.id WHERE c.isDelete = '0' AND a.isDelete =
 		'0' AND a.clubID =
 		#{clubID}
+	</select>
+	
+	<select id="getAllActivities"
+		resultMap="BaseResultMap">
+		SELECT
+		a.actCost,a.actTitle,a.id,a.beginCity,a.actCurPerson,a.beginTime,a.introduction,c.clubName FROM activity a INNER
+		JOIN club c ON a.clubID
+		= c.id WHERE c.isDelete = '0' AND a.isDelete =
+		'0'
 	</select>
 
 	<select id="selectActivityByActID"

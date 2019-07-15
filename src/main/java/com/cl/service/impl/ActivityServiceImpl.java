@@ -50,5 +50,11 @@ public class ActivityServiceImpl implements ActivityService{
 		// TODO Auto-generated method stub
 		return activityMapper.selectActivityByActID(actID);
 	}
+
+	@Override
+	public List<Activity> getAllActivities() {
+		// TODO Auto-generated method stub
+		return activityMapper.getAllActivities();
+	}
 	
 }

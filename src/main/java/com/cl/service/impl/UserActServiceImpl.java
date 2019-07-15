@@ -21,4 +21,10 @@ public class UserActServiceImpl implements UserActService{
 		return userActMapper.selectAllUsersByClubID(clubID);
 	}
 
+	@Override
+	public List<UserAct> getAllUsers() {
+		// TODO Auto-generated method stub
+		return userActMapper.getAllUsers();
+	}
+
 }

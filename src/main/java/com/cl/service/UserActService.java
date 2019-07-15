@@ -6,4 +6,6 @@ import com.cl.entity.UserAct;
 
 public interface UserActService {
 	List<UserAct> selectAllUsersByClubID(Integer clubID);
+	
+	List<UserAct> getAllUsers();
 }

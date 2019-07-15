@@ -1,5 +1,7 @@
 package com.cl.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,12 @@ public class ClubServiceImpl implements ClubService {
 	public Club selectClubByClubLogin(String clubLogin) {
 		// TODO Auto-generated method stub
 		return clubMapper.selectClubByClubLogin(clubLogin);
+	}
+
+	@Override
+	public List<Club> getAllClubs() {
+		// TODO Auto-generated method stub
+		return clubMapper.getAllClubs();
 	}
 
 }
