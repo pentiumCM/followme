@@ -16,7 +16,7 @@
               </a>
               <Dropdown-menu slot="list">
                 <Dropdown-item>信息</Dropdown-item>
-                <a href="#" @click="clubLogOut()"><Dropdown-item>退出</Dropdown-item></a>
+                <a href="#" @click="adminLogOut()"><Dropdown-item>退出</Dropdown-item></a>
               </Dropdown-menu>
             </Dropdown>
           </div>

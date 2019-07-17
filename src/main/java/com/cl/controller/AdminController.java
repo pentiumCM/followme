@@ -134,4 +134,16 @@ public class AdminController {
 		}
 		return JSON.toJSONString(commonResp);
 	}
+	
+	/**
+	 * 管理员登出
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/logOut", method = RequestMethod.GET)
+	public String logOut(HttpServletRequest request) {
+		request.getSession().removeAttribute("LOGIN ADMIN");
+		CommonResp commonResp = new CommonResp(Constants.SUCCESS_CODE, "logOut success", null);
+		return JSON.toJSONString(commonResp);
+	}
 }

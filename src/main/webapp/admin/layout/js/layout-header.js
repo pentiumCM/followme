@@ -32,13 +32,13 @@ module.exports = {
 				 * 登出
 				 */
 
-		clubLogOut() {
+		adminLogOut() {
 			console.log("--------------")
-			var url = PROJECT_NAME + '/club/logOut'
+			var url = PROJECT_NAME + '/admin/logOut'
 			callAjaxGetNoParam(url,  this.callBack);
 		},
 		callBack() {
-			sessionStorage.removeItem("clubName");
+			sessionStorage.removeItem("adminName");
 			window.location.href = METHOD_URL + PROJECT_NAME + "/club/login.html";
 		},
 
